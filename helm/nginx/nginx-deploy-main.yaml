@@ -4,6 +4,7 @@ metadata:
   labels:
     run: nginx
   name: nginx-deploy-main
+  namespace: nginx
 spec:
   replicas: 1
   selector:
@@ -17,3 +18,15 @@ spec:
       containers:
       - image: nginx
         name: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-main
+  namespace: nginx
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    run: nginx-main

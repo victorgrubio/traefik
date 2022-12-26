@@ -1,0 +1,36 @@
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: traefik-cert-v2
+  namespace: traefik
+spec:
+  domains:
+  - api.victorgarciar.com
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: traefik-frontend-cfg
+  namespace: traefik
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: PERMANENT_REDIRECT
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-ingress
+  namespace: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    kubernetes.io/ingress.global-static-ip-name: "traefik-http-lb"
+    networking.gke.io/v1beta1.FrontendConfig: "traefik-frontend-cfg"
+    networking.gke.io/managed-certificates: "traefik-cert-v2"
+spec:
+  defaultBackend:
+    service:
+      name: traefik
+      port:
+        number: 80

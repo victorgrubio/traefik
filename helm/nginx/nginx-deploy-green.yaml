@@ -4,6 +4,7 @@ metadata:
   labels:
     run: nginx
   name: nginx-deploy-green
+  namespace: nginx
 spec:
   replicas: 1
   selector:
@@ -30,3 +31,15 @@ spec:
         volumeMounts:
         - name: webdata
           mountPath: "/usr/share/nginx/html"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-deploy-green
+  namespace: nginx
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    run: nginx-green
