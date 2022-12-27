@@ -2,7 +2,7 @@
 
 ## GCP
 
-Created a sample NGINX and Traefik deployment on GCP to handle service exposition conditions on GCP (Usage of nodeport). Working example in folder [gcp-nginx](./helm/gcp-nginx/) using mingshu setup and "just me and opensource" video guides.
+Created a sample NGINX and Traefik deployment on GCP to handle service exposition conditions on GCP (Usage of nodeport). Working example in folder [gcp-nginx](./helm/gcp-nginx/) using mingshu setup, gcloud armour guide and "just me and opensource" video guides.
 
 ### Articles
 
