@@ -35,12 +35,3 @@ spec:
         - name: nginx-deploy-blue
           namespace: nginx
           port: 80
-    - match: Host(`api.victorgarciar.com`) && Path(`/green`)
-      kind: Rule
-      middlewares:
-        - name: nginx-strip-path-prefix
-          namespace: nginx
-      services:
-        - name: nginx-deploy-green
-          namespace: nginx
-          port: 80
