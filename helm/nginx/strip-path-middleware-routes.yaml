@@ -15,7 +15,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: nginx
-  namespace: traefik
+  namespace: nginx
 spec:
   entryPoints:
     - web
@@ -23,19 +23,24 @@ spec:
     - match: Host(`api.victorgarciar.com`)
       kind: Rule
       services:
-        - name: nginx-deploy-main
+        - name: nginx-main
+          namespace: nginx
           port: 80
     - match: Host(`api.victorgarciar.com`) && Path(`/blue`)
       kind: Rule
       middlewares:
         - name: nginx-strip-path-prefix
+          namespace: nginx
       services:
         - name: nginx-deploy-blue
+          namespace: nginx
           port: 80
     - match: Host(`api.victorgarciar.com`) && Path(`/green`)
       kind: Rule
       middlewares:
         - name: nginx-strip-path-prefix
+          namespace: nginx
       services:
         - name: nginx-deploy-green
+          namespace: nginx
           port: 80
